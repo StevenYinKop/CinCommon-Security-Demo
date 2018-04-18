@@ -1,4 +1,4 @@
-package com.yinzifan.controller;
+package com.yinzifan.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.yinzifan.dto.QueryCondition;
 import com.yinzifan.dto.User;
+import com.yinzifan.exception.UserNotExistException;
 
 @RestController
 @RequestMapping("/user")
@@ -65,6 +66,7 @@ public class UserController {
 	
 	@PutMapping("/{id:\\d+}")
 	public User update(@Valid @RequestBody User user, BindingResult error) {
+		System.out.println("UserController.update()");
 		if(error.hasErrors()) {
 			error.getAllErrors().stream().forEach(x -> {
 //					FieldError fieldError = (FieldError)x;
@@ -84,6 +86,11 @@ public class UserController {
 	@DeleteMapping("/{id:\\d+}")
 	public void delete(@PathVariable("id")String id) {
 		System.out.println(id);
+	}
+	
+	@GetMapping("/exDemo/{id:\\d+}")
+	public User ex(@PathVariable String id) {
+		throw new UserNotExistException(id);
 	}
 }
 
