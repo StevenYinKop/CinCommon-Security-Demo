@@ -1,7 +1,10 @@
 package com.yinzifan.dto;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class QueryCondition {
 
+	@ApiModelProperty("用户名称")
 	private String username;
 	private String age;
 	private String ageTo;

@@ -26,6 +26,9 @@ import com.yinzifan.dto.QueryCondition;
 import com.yinzifan.dto.User;
 import com.yinzifan.exception.UserNotExistException;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -33,6 +36,7 @@ public class UserController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 	@GetMapping
 	@JsonView(User.UserSimpleView.class)
+	@ApiOperation("查询方法")
 	public List<User> query(QueryCondition query,@PageableDefault(sort= {"username", "asc"}) Pageable pageable ) {
 		LOGGER.info("QueryCondition: {}", ReflectionToStringBuilder.toString(query, ToStringStyle.MULTI_LINE_STYLE));
 		LOGGER.info("pageable: {}", ReflectionToStringBuilder.toString(pageable, ToStringStyle.MULTI_LINE_STYLE));
@@ -84,7 +88,7 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/{id:\\d+}")
-	public void delete(@PathVariable("id")String id) {
+	public void delete(@ApiParam("用户ID") @PathVariable("id")String id) {
 		System.out.println(id);
 	}
 	
