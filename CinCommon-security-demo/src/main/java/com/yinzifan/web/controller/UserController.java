@@ -11,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +37,17 @@ import io.swagger.annotations.ApiParam;
 public class UserController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+	
+	@GetMapping("/me")
+	public Object getCurrentUser(@AuthenticationPrincipal UserDetails userdetail) {
+		return userdetail; //SecurityContextHolder.getContext().getAuthentication();
+	}
+	
+	@GetMapping("/me2")
+	public Object getCurrentUser2(Authentication authentication) {
+		return authentication; //SecurityContextHolder.getContext().getAuthentication();
+	}
+	
 	@GetMapping
 	@JsonView(User.UserSimpleView.class)
 	@ApiOperation("查询方法")
