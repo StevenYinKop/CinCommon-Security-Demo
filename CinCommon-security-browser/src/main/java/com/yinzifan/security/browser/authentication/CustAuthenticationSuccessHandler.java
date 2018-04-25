@@ -14,8 +14,8 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yinzifan.core.properties.LoginType;
-import com.yinzifan.core.properties.SecurityProperties;
+import com.yinzifan.security.core.properties.LoginType;
+import com.yinzifan.security.core.properties.SecurityProperties;
 
 @Component
 public class CustAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler{//implements AuthenticationSuccessHandler{

@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.yinzifan.core.properties.SecurityProperties;
 import com.yinzifan.security.browser.support.SimpleResponse;
+import com.yinzifan.security.core.properties.SecurityProperties;
 
 
 @RestController

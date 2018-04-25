@@ -7,10 +7,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.yinzifan.core.properties.SecurityProperties;
 import com.yinzifan.security.browser.authentication.CustAuthenticationFailureHandler;
 import com.yinzifan.security.browser.authentication.CustAuthenticationSuccessHandler;
+import com.yinzifan.security.core.properties.SecurityProperties;
+import com.yinzifan.security.core.validate.code.ValidateCodeFilter;
 
 @Configuration
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter{
@@ -31,7 +33,10 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.formLogin() // 用表单登录进行身份认证
+		ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
+		validateCodeFilter.setAuthenticationFailureHandler(custAuthenticationFailureHandler);
+		http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+			.formLogin() // 用表单登录进行身份认证
 			.successHandler(custAuthenticationSuccessHandler)
 			.failureHandler(custAuthenticationFailureHandler)
 			.loginPage("/authentication/require")
@@ -40,7 +45,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter{
 			.csrf().disable()
 			.authorizeRequests()
 			.antMatchers("/authentication/require", 
-						securityProperties.getBrowser().getLoginPage())
+						securityProperties.getBrowser().getLoginPage(), 
+						"/code/image")
 						.permitAll()
 			.anyRequest() // 任何请求
 			.authenticated(); // 都要进行身份认证
