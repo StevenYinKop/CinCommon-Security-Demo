@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.yinzifan.security.core.properties.SecurityProperties;
-import com.yinzifan.security.core.validate.code.image.ImageCodeGeneratorImpl;
-import com.yinzifan.security.core.validate.code.sms.SimpleSmsCodeSender;
+import com.yinzifan.security.core.validate.code.image.ImageCodeGenerator;
+import com.yinzifan.security.core.validate.code.sms.DefaultSmsCodeSender;
 import com.yinzifan.security.core.validate.code.sms.SmsCodeSender;
 
 @Configuration
@@ -22,7 +22,7 @@ public class ValidateCodeBeanConfig {
 	// 会现在spring容器中寻找是否已经存在name=imageCodeGenerator, 
 	// 如果存在则不用下面的配置了, 直接使用已存在的
 	public ValidateCodeGenerator imageCodeGenerator() {
-		ImageCodeGeneratorImpl imageCodeGenerator = new ImageCodeGeneratorImpl();
+		ImageCodeGenerator imageCodeGenerator = new ImageCodeGenerator();
 		imageCodeGenerator.setSecurityProperties(securityProperties);
 		return imageCodeGenerator;
 	}
@@ -33,6 +33,6 @@ public class ValidateCodeBeanConfig {
 	// 会现在spring容器中寻找是否已经存在name=imageCodeGenerator, 
 	// 如果存在则不用下面的配置了, 直接使用已存在的
 	public SmsCodeSender smsCodeSender() {
-		return new SimpleSmsCodeSender();
+		return new DefaultSmsCodeSender();
 	}
 }

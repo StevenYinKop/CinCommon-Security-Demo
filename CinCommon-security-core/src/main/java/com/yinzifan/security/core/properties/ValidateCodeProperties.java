@@ -1,4 +1,4 @@
-package com.yinzifan.security.core.validate.code.properties;
+package com.yinzifan.security.core.properties;
 
 public class ValidateCodeProperties {
 

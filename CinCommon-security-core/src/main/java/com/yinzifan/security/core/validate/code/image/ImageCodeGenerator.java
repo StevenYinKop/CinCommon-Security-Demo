@@ -6,8 +6,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 
@@ -16,16 +14,16 @@ import com.yinzifan.security.core.validate.code.ValidateCode;
 import com.yinzifan.security.core.validate.code.ValidateCodeGenerator;
 
 //@Component
-public class ImageCodeGeneratorImpl implements ValidateCodeGenerator{
+public class ImageCodeGenerator implements ValidateCodeGenerator{
 	private SecurityProperties securityProperties;
 	
 	@Override
-	public ImageCode createImageCode(HttpServletRequest request) {
+	public ValidateCode generate(ServletWebRequest request) {
 
-		int height = ServletRequestUtils.getIntParameter(request, "height", securityProperties.getCode().getImage().getHeight());
-		int width = ServletRequestUtils.getIntParameter(request, "width", securityProperties.getCode().getImage().getWidth());
-		int length= ServletRequestUtils.getIntParameter(request, "length", securityProperties.getCode().getImage().getLength());
-		int expireIn = ServletRequestUtils.getIntParameter(request, "expireIn", securityProperties.getCode().getImage().getExpireIn());
+		int height = ServletRequestUtils.getIntParameter(request.getRequest(), "height", securityProperties.getCode().getImage().getHeight());
+		int width = ServletRequestUtils.getIntParameter(request.getRequest(), "width", securityProperties.getCode().getImage().getWidth());
+		int length= ServletRequestUtils.getIntParameter(request.getRequest(), "length", securityProperties.getCode().getImage().getLength());
+		int expireIn = ServletRequestUtils.getIntParameter(request.getRequest(), "expireIn", securityProperties.getCode().getImage().getExpireIn());
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		Graphics g = image.getGraphics();
 		Random random = new Random();
@@ -77,10 +75,4 @@ public class ImageCodeGeneratorImpl implements ValidateCodeGenerator{
 		this.securityProperties = securityProperties;
 	}
 
-	@Override
-	public ValidateCode generate(ServletWebRequest request) {
-		return null;
-	}
-	
-	
 }
