@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import com.yinzifan.security.core.authentication.AbstractChannelSecurityConfig;
 import com.yinzifan.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
@@ -36,6 +37,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig{
 	@Autowired
 	private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 	
+	@Autowired
+	private SpringSocialConfigurer socialConfig;
+	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -53,9 +57,12 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig{
 	protected void configure(HttpSecurity http) throws Exception {
 
 		applyPasswordAuthenticationConfig(http);		
-		http.apply(validateCodeSecurityConfig)
+		http
+	.apply(validateCodeSecurityConfig)
 		.and()
 	.apply(smsCodeAuthenticationSecurityConfig)
+		.and()
+	.apply(socialConfig)
 		.and()
 	.rememberMe()
 		.tokenRepository(persistentTokenRepository())
