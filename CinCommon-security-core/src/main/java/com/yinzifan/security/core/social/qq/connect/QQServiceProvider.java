@@ -1,7 +1,6 @@
 package com.yinzifan.security.core.social.qq.connect;
 
 import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
-import org.springframework.social.oauth2.OAuth2Template;
 
 import com.yinzifan.security.core.social.qq.api.QQ;
 import com.yinzifan.security.core.social.qq.api.QQImpl;
@@ -23,7 +22,8 @@ public class QQServiceProvider extends AbstractOAuth2ServiceProvider<QQ> // 泛�
 		 * @param authorizeUrl the base URL to redirect to when doing authorization code or implicit grant authorization //导向的服务器url
 		 * @param accessTokenUrl the URL at which an authorization code, refresh token, or user credentials may be exchanged for an access token. //服务器统一授权后, 返回了授权码, 将授权码传送到的url
 		 */
-		super(new OAuth2Template(clientId, clientSecret, URL_AUTHORIZE, URL_ACCESS_TOKEN));
+		super(new QQOAuth2Template(clientId, clientSecret, URL_AUTHORIZE, URL_ACCESS_TOKEN));
+		this.appId = clientId;
 	}
 
 	@Override

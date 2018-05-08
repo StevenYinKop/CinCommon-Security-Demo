@@ -4,6 +4,8 @@ public class BrowserProperties {
 
 	private String loginPage = "/default-login.html";
 
+	private String signUpUrl = "/default-signup.html";
+	
 	private LoginType loginType = LoginType.JSON;
 	
 	private int rememberMeSec = 3600;
@@ -40,6 +42,14 @@ public class BrowserProperties {
 
 	public void setRememberMeSec(int rememberMeSec) {
 		this.rememberMeSec = rememberMeSec;
+	}
+
+	public String getSignUpUrl() {
+		return signUpUrl;
+	}
+
+	public void setSignUpUrl(String signUpUrl) {
+		this.signUpUrl = signUpUrl;
 	}
 	
 }
