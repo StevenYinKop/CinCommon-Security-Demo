@@ -42,9 +42,9 @@
 	</build>
 	<modules>
 		
-		<module>../CinCommon-security-browser</module>
-		<module>../CinCommon-security-core</module>
-		<module>../CinCommon-security-demo</module>
-		<module>../CinCommon-security-app</module>
+		<module>CinCommon-security-browser</module>
+		<module>CinCommon-security-core</module>
+		<module>CinCommon-security-demo</module>
+		<module>CinCommon-security-app</module>
 	</modules>
 </project>

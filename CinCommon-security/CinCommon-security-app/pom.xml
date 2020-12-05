@@ -6,7 +6,7 @@
 		<groupId>com.yinzifan.security</groupId>
 		<artifactId>CinCommon-security</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../CinCommon-security</relativePath>
+		<relativePath>CinCommon-security</relativePath>
 	</parent>
 	<dependencies>
 		<dependency>
